@@ -15,6 +15,7 @@ router.get('/api/get', async (ctx, next) => {
 			response.data = data;
 			response.state = 1;
 		}).catch((err) => {
+			response.state = 10001;
 			response.msg = err;
 		});
 	ctx.body = response;
@@ -22,7 +23,20 @@ router.get('/api/get', async (ctx, next) => {
 });
 
 router.post('/api/add', async (ctx, next) => {
-	// ctx.request.body
+	const { data } = ctx.request.body;
+	// todo 验证data 的各个参数合法性
+	await dbFn.add(data)
+		.then((res) => {
+			if (res) {
+				ctx.body.state = 1;
+				ctx.body.data = res;
+			}
+		})
+		.catch((err) => {
+			ctx.body.state = 10001;
+			ctx.body.msg = err;
+		});
+	await next();
 });
 
 router.post('/api/delete', async (ctx, next) => {
