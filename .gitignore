@@ -18,6 +18,9 @@ public/
 # Dependency directories
 node_modules/
 
+# webstorm
+
+.idea/
 
 # Optional npm cache directory
 .npm
