@@ -2,55 +2,6 @@ import articleModel from './defineModel';
 
 const { listModel, detailModel} = articleModel;
 
-// const dbFn = {
-//     add(instance) {
-//         return articleModel.create(instance);
-//     },
-//
-//      get(id) {
-//         // id==0, get lists
-//         if (id === 0) {
-//           return articleModel.find({}).lean().exec();
-//         }
-//         return articleModel.findOne({ id }).lean().exec();
-//     },
-//
-//     del(id) {
-//         return articleModel.remove({ id });
-//     },
-//
-//     edit(data) {
-//         return articleModel.findOneAndUpdate({ id: data.id }, {
-//             $set: {
-//                 content: data.content,
-//             },
-//         }, {}, () => {
-//             console.log('update done');
-//         });
-//     },
-//
-//     // automatically add or edit
-//     update(data) {
-//         const userId = data.id;
-//         articleModel.count({ id: userId }, (err, count) => {
-//             if (err) {
-//                 throw new Error(err);
-//             }
-//             if (count > 0) {
-//                 articleModel.findOneAndUpdate({ id: userId }, {
-//                     $set: {
-//                         content: data.content,
-//                     },
-//                 }, {}, () => {
-//                     console.log('update done');
-//                 });
-//             } else {
-//                 articleModel.create(data);
-//             }
-//         });
-//     },
-// };
-
 class OperateDB {
 
     constructor(model) {
