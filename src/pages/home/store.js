@@ -1,8 +1,10 @@
-import { observable, action, runInAction, computed, reaction } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 import axios from 'axios';
 import { message, notification } from 'antd';
 
 class HomeStore {
+	@observable showChildComponent = false;
+
 	@action deleteArticle(id) {
 		axios.post('/api/delete', { id })
 			.then((res) => {
@@ -13,6 +15,15 @@ class HomeStore {
 				}
 			})
 	}
+
+	@action setShowVisible(value) {
+		this.showChildComponent = value;
+	}
+
+	@computed get showStatus() {
+		return toJS(this.showChildComponent)
+	}
+
 }
 
 const store = new HomeStore();
