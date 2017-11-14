@@ -3,10 +3,11 @@ const logger = require('koa-logger');
 const serve = require('koa-static');
 const render = require('koa-ejs');
 const bodyParser = require('koa-bodyparser');
-
 const historyFallback = require('koa2-history-api-fallback');
-const router = require('./server/router');
 const path = require('path');
+const WebSocket = require('ws');
+
+const router = require('./server/router');
 
 const app = new Koa();
 
@@ -42,8 +43,16 @@ app.use(router.allowedMethods());
 
 
 if (!module.parent) {
-	app.listen(3000);
-	console.log('listening on port 3000');
+	const server = app.listen(3000);
+	const ws = new WebSocket.Server({ server });
+	ws.on('connection', (wsocket) => {
+		wsocket.on('message', (message) => {
+			console.log('received: %s', message);
+		});
+		wsocket.send('this is msg from server');
+	});
+	// console.log('listening on port 3000');
 }
+
 
 module.exports = app;

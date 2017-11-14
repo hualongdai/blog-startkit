@@ -18,6 +18,11 @@
 * 2: `npm run build-dll`
 * 3:  `npm start` just starts your site
 
+# how to start mongodb
+
+* 1. `cd /usr/local/mongodb/bin`
+* 2. `./mongod`
+
 **注意点** 
 
 1. `npm run start` 和 `npm run build-assets` 前必须先执行 `npm run build-dll`;

@@ -38,7 +38,8 @@
     "pre-push": "^0.1.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "ws": "^3.3.1"
   },
   "devDependencies": {
     "add-asset-html-webpack-plugin": "^2.1.1",
