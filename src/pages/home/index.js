@@ -1,21 +1,30 @@
-import React from 'react';
-import { Button } from 'antd';
-import { observer } from 'mobx-react';
-import App from 'MyComponent/App';
-import { router } from 'react-router-dom';
+import React from "react";
+import { Button } from "antd";
+import { observer } from "mobx-react";
+import App from "MyComponent/App";
+import { router } from "react-router-dom";
 
-import eventBus from 'MyUtils/eventBus';
-import store from './store';
+import eventBus from "MyUtils/eventBus";
+import store from "./store";
 
 @observer
 export default class Home extends React.Component {
+  componentDidMount() {
+    this.generate();
+  }
 
-	handleClick = () => {
+  generate = () => {
+    const scriptEle = document.createElement("script");
+    scriptEle.src = "http://localhost:3000?callback=jsonpCallback";
+    document.querySelector("head").appendChild(scriptEle);
+  };
+
+  handleClick = () => {
     // store.deleteArticle(1)
-		eventBus.on('message', (msg) => {
-      console.log('this is msg from component child:'+ msg.msg);
+    eventBus.on("message", msg => {
+      console.log("this is msg from component child:" + msg.msg);
     });
-		store.setShowVisible(!store.showStatus);
+    store.setShowVisible(!store.showStatus);
   };
 
   render() {
@@ -23,22 +32,21 @@ export default class Home extends React.Component {
     return (
       <App>
         <div>this is home</div>
-        <Button type="primary" onClick={this.handleClick}>delete</Button>
-        { showChildComponent ?  <ChildHome /> : null }
+        <Button type="primary" onClick={this.handleClick}>
+          delete
+        </Button>
+        {showChildComponent ? <ChildHome /> : null}
       </App>
     );
   }
 }
 
-
 class ChildHome extends React.Component {
   componentDidMount() {
-		eventBus.trigger('message', { msg: '333' })
+    eventBus.trigger("message", { msg: "333" });
   }
 
   render() {
-    return (
-      <div>this is childHome Component!</div>
-    )
+    return <div>this is childHome Component!</div>;
   }
 }

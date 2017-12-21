@@ -7,7 +7,9 @@ class EventBus {
 		if (this.onObj[method] === undefined) {
 			this.onObj[method] = [];
 		}
-		this.onObj[method].push(callback);
+		if (this.onObj[method].indexOf(callback) === -1) {
+			this.onObj[method].push(callback);
+		}
 	}
 
 	off(method) {
