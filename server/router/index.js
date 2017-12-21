@@ -1,9 +1,25 @@
-import dbFn from '../model/dbFn';
-
+// import dbFn from '../model/dbFn';
+const dbFn = require('../model/dbFn');
 const router = require('koa-router')();
 
 router.get('/', async (ctx, next) => {
 	ctx.render('index.html', {});
+	await next();
+});
+
+router.get('/test.js', async (ctx, next) => {
+	// 获取jsonp的callback
+	const callbackName = ctx.query.callback || 'callback';
+	const returnData = {
+		text: 'this is a jsonp api',
+		time: new Date().getTime(),
+	};
+	const jsonpStr = `;${callbackName}(${JSON.stringify(returnData)})`;
+	// 用text/javascript，让请求支持跨域获取
+	ctx.type = 'text/javascript';
+
+	// 输出jsonp字符串
+	ctx.body = jsonpStr;
 	await next();
 });
 

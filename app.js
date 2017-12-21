@@ -3,12 +3,16 @@ const logger = require('koa-logger');
 const serve = require('koa-static');
 const render = require('koa-ejs');
 const bodyParser = require('koa-bodyparser');
+const jsonp = require('koa-jsonp');
 
 const historyFallback = require('koa2-history-api-fallback');
 const router = require('./server/router');
 const path = require('path');
 
 const app = new Koa();
+
+// support jsonp
+// app.use(jsonp());
 
 // router to front-end
 app.use(historyFallback());
@@ -39,6 +43,20 @@ app.use(serve(path.join(__dirname, 'public'), {
 app.use(bodyParser());
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+
+// app.use(async (ctx) => {
+// 	const returnData = {
+// 		success: true,
+// 		data: {
+// 			text: 'this is a jsonp api',
+// 			time: new Date().getTime(),
+// 		},
+// 	};
+//
+// 	// 直接输出JSON
+// 	ctx.body = returnData;
+// });
 
 
 if (!module.parent) {

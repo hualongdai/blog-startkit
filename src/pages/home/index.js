@@ -9,22 +9,17 @@ import store from "./store";
 
 @observer
 export default class Home extends React.Component {
-  componentDidMount() {
-    this.generate();
-  }
-
-  generate = () => {
-    const scriptEle = document.createElement("script");
-    scriptEle.src = "http://localhost:3000?callback=jsonpCallback";
-    document.querySelector("head").appendChild(scriptEle);
-  };
 
   handleClick = () => {
     // store.deleteArticle(1)
-    eventBus.on("message", msg => {
-      console.log("this is msg from component child:" + msg.msg);
-    });
-    store.setShowVisible(!store.showStatus);
+    // eventBus.on("message", msg => {
+    //   console.log("this is msg from component child:" + msg.msg);
+    // });
+    // store.setShowVisible(!store.showStatus);
+
+		const script = document.createElement("script");
+		script.src = "http://localhost:3000/test.js?callback=handleResponse";
+		document.body.appendChild(script);
   };
 
   render() {

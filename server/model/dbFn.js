@@ -1,4 +1,4 @@
-import articleModel from './defineModel';
+const articleModel = require('./defineModel');
 
 const { listModel, detailModel} = articleModel;
 
@@ -65,4 +65,4 @@ const dbFn = new OperateDB(listModel);
 // 	console.log(err);
 // });
 
-export default dbFn;
+module.exports = dbFn;

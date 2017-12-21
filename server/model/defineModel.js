@@ -1,4 +1,5 @@
-import mongoose from './mongoose_config';
+// import mongoose from './mongoose_config';
+const mongoose = require('./mongoose_config');
 
 const { Schema } = mongoose;
 
@@ -38,4 +39,5 @@ const articleModel = {
   detailModel: mongoose.model('detailModel', DetailSchema),
 };
 
-export default articleModel;
+// export default articleModel;
+module.exports = articleModel;
