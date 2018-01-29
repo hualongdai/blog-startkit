@@ -2,7 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import App from 'MyComponent/App';
 
-import eventBus from 'MyUtils/eventBus';
+import EventEmitter from 'MyUtils/EventEmitter';
 import store from './store';
 
 @inject('route')
@@ -10,7 +10,7 @@ import store from './store';
 export default class List extends React.Component {
 
 	componentDidMount() {
-		eventBus.trigger('message', { msg: '333' })
+		EventEmitter.emit('message', { msg: 'this is form list' })
 	}
 
 	render() {
